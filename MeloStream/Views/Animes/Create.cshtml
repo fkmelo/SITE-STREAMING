@@ -1,0 +1,35 @@
+﻿@model MeloStream.Models.Anime
+
+@{
+    ViewData["Title"] = "Ajouter un Anime";
+}
+
+<h2>Ajouter un nouvel Anime</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+
+            <div class="form-group mb-3">
+                <label class="control-label">Titre de l'anime</label>
+                <input asp-for="Titre" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Synopsis / Résumé</label>
+                <textarea asp-for="Synopsis" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">URL de l'image de couverture</label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Enregistrer en Base de Données</button>
+                <a asp-action="Index" class="btn btn-secondary">Retour</a>
+            </div>
+        </form>
+    </div>
+</div>

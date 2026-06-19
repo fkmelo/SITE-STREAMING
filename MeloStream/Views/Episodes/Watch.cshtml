@@ -1,0 +1,113 @@
+﻿@model MeloStream.Models.Episode
+
+@{
+    ViewData["Title"] = $"{Model.Anime?.Titre} - Épisode {Model.Numero}";
+}
+<style>
+    body {
+        background-color: #1a1c20 !important;
+        color: #ffffff !important;
+    }
+
+    .text-dark {
+        color: #ffffff !important;
+    }
+
+    .text-muted {
+        color: #b0b3b8 !important;
+    }
+
+    .bg-light {
+        background-color: #242526 !important;
+    }
+
+    /* Effet de lueur sur l'affiche */
+    .poster-glow {
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+
+    /* Boutons de saison style FrAnime */
+    .btn-season {
+        background-color: #2d3035;
+        color: #b0b3b8;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+        .btn-season.active {
+            background-color: lightgrey !important; /* Rouge Netflix/FrAnime */
+            color: white !important;
+        }
+
+    /* Cartes d'épisodes horizontales et sombres */
+    .episode-card {
+        background-color: #242526;
+        border: 1px solid #2d3035;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        overflow: hidden;
+    }
+
+        .episode-card:hover {
+            background-color: #2d3035;
+            border-color: pink;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Animes" asp-action="Index">Catalogue</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Animes" asp-action="Details" asp-route-id="@Model.AnimeId">@Model.Anime?.Titre</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Saison @Model.Saison - Épisode @Model.Numero</li>
+        </ol>
+    </nav>
+
+    <div class="mb-4">
+        <h1 class="fw-bold text-dark">@Model.Anime?.Titre</h1><br />
+        <h4 class="text-muted">Saison @Model.Saison • <span class="text-secondary">@Model.Titre</span></h4>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            @if (!Model.PlayerLinks.Any())
+            {
+                <div class="alert alert-danger shadow-sm">
+                    ⚠️ Aucun lien de streaming n'est disponible pour cet épisode pour le moment.
+                </div>
+            }
+            else
+            {
+                <div class="ratio ratio-16x9 bg-black rounded shadow overflow-hidden">
+                    <iframe id="videoPlayer" src="@Model.PlayerLinks.First().UrlEmbed"
+                            allowfullscreen scrolling="no" frameborder="0"></iframe>
+                </div>
+
+                <div class="mt-3 p-3 bg-light rounded shadow-sm d-flex align-items-center">
+                    <span class="fw-bold me-3 text-secondary">Changer de lecteur :</span>
+                    <div class="btn-group" role="group">
+                        @foreach (var link in Model.PlayerLinks)
+                        {
+                            <button type="button" class="btn btn-outline-primary fw-semibold"
+                                    onclick="changePlayer('@link.UrlEmbed')">
+                                 @link.NomPlateforme
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function changePlayer(url) {
+        document.getElementById('videoPlayer').src = url;
+    }
+</script>

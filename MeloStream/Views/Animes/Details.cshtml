@@ -1,0 +1,144 @@
+﻿@model MeloStream.Models.Anime
+
+@{
+    ViewData["Title"] = Model.Titre;
+    // On extrait proprement toutes les saisons uniques présentes pour cet anime
+    var saisons = Model.Episodes.Select(e => e.Saison).Distinct().OrderBy(s => s).ToList();
+}
+
+<script src="https://kit.fontawesome.com/e170ad8b3b.js" crossorigin="anonymous"></script>
+<style>
+    body {
+        background-color: #1a1c20 !important;
+        color: #ffffff !important;
+    }
+
+    .text-dark {
+        color: #ffffff !important;
+    }
+
+    .text-muted {
+        color: #b0b3b8 !important;
+    }
+
+    .bg-light {
+        background-color: #242526 !important;
+    }
+
+    /* Effet de lueur sur l'affiche */
+    .poster-glow {
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+
+    /* Boutons de saison style FrAnime */
+    .btn-season {
+        background-color: #2d3035;
+        color: #b0b3b8;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+        .btn-season.active {
+            background-color: lightgrey !important; /* Rouge Netflix/FrAnime */
+            color: white !important;
+        }
+
+    /* Cartes d'épisodes horizontales et sombres */
+    .episode-card {
+        background-color: #242526;
+        border: 1px solid #2d3035;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        overflow: hidden;
+    }
+
+        .episode-card:hover {
+            background-color: #2d3035;
+            border-color: lightgrey;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="container py-5">
+
+    <a asp-action="Index" class="btn btn-sm btn-outline-light mb-4 px-3"><i class="fa-solid fa-angle-left"></i> Retour au catalogue</a>
+
+    <div class="row mb-5">
+        <div class="col-lg-3 col-md-4 mb-4 text-center text-md-start">
+            <img src="@Model.ImageUrl" class="img-fluid poster-glow mb-3 w-100" alt="@Model.Titre" onerror="this.src='https://placehold.co/400x600?text=Pas+d+image'">
+
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-2 mt-3">
+                <span class="badge p-2" style="background-color:lightgray; color:black">@Model.Episodes.Count Épisodes</span>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-8 ps-md-4">
+            <h1 class="display-5 fw-bold mb-2">@Model.Titre</h1><br />
+
+            <h4 class="fw-bold text-muted mb-2">Synopsis</h4>
+            <p class="text-secondary p-3  rounded border-start border-secondary border-3" style="color: #e4e6eb !important;">
+                @Model.Synopsis
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h3 class="fw-bold mb-4 d-flex align-items-center">
+                Épisodes
+            </h3>
+
+            @if (!Model.Episodes.Any())
+            {
+                <div class="alert alert-dark border border-secondary">Aucun épisode disponible pour le moment</div>
+            }
+            else
+            {
+                <div class="d-flex gap-2 mb-4 overflow-auto pb-2">
+                    @for (int i = 0; i < saisons.Count; i++)
+                    {
+                        var numéroSaison = saisons[i];
+                        <button class="btn btn-season @(i == 0 ? "active" : "")"
+                                data-bs-toggle="pill"
+                                data-bs-target="#saison-@numéroSaison"
+                                type="button">
+                            Saison @numéroSaison
+                        </button>
+                    }
+                </div>
+
+                <div class="tab-content">
+                    @for (int i = 0; i < saisons.Count; i++)
+                    {
+                        var numéroSaison = saisons[i];
+                        <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="saison-@numéroSaison">
+
+                            <div class="row g-3">
+                                @foreach (var ep in Model.Episodes.Where(e => e.Saison == numéroSaison).OrderBy(e => e.Numero))
+                                {
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="episode-card p-3 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <div class="small text-white fw-semibold text-truncate" style="max-width: 200px;">@ep.Titre</div>
+                                            </div>
+                                            <a asp-controller="Episodes" asp-action="Watch" asp-route-id="@ep.Id"
+                                               class="btn  rounded-pill px-3 fw-bold shadow-sm" style="color:pink">
+                                                Visionner
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

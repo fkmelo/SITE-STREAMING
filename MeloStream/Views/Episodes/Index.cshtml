@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MeloStream.Models.Episode>
+
+@{
+    ViewData["Title"] = "Liste des Épisodes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Gestion des Épisodes</h2>
+    <a asp-action="Create" class="btn btn-success">➕ Ajouter un Épisode</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Aucun épisode répertorié pour le moment.</div>
+}
+else
+{
+    <table class="table table-striped table-hover shadow-sm bg-white rounded">
+        <thead class="table-dark">
+            <tr>
+                <th>Anime</th>
+                <th>Saison</th>
+                <th>Épisode</th>
+                <th>Titre de l'épisode</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><strong>@item.Anime?.Titre</strong></td>
+                    <td>Saison @item.Saison</td>
+                    <td>Épisode @item.Numero</td>
+                    <td>@item.Titre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

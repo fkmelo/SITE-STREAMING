@@ -1,0 +1,42 @@
+﻿@model MeloStream.Models.Episode
+
+@{
+    ViewData["Title"] = "Ajouter un Épisode";
+}
+
+<h2>Ajouter un nouvel Épisode</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+
+            <div class="form-group mb-3">
+                <label class="control-label">Sélectionner l'Anime</label>
+                <select asp-for="AnimeId" class="form-control" asp-items="ViewBag.AnimeId" required>
+                    <option value="">-- Choisir un anime --</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Numéro de la Saison</label>
+                <input asp-for="Saison" class="form-control" type="number" min="1" value="1" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Numéro de l'épisode</label>
+                <input asp-for="Numero" class="form-control" type="number" min="1" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Titre de l'épisode</label>
+                <input asp-for="Titre" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Enregistrer l'Épisode</button>
+                <a asp-action="Index" class="btn btn-secondary">Retour</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MeloStream.Models.Anime>
+
+@{
+    ViewData["Title"] = "Liste des Animes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>CATALOGUES</h2>
+    <a asp-action="Create" class="btn btn-success">➕ Ajouter un Anime</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">La base de données est vide. Ajoute un anime pour commencer !</div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">
+                    <div class="card h-100 shadow-sm card-hover" style="cursor: pointer;">
+                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.Titre" style="max-height: 250px; object-fit: cover;" onerror="this.src='https://placehold.co/400x250?text=Pas+d+image'">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@item.Titre</h5>
+                            <p class="card-text text-truncate text-muted">@item.Synopsis</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+}

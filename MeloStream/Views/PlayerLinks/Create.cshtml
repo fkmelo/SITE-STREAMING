@@ -1,0 +1,37 @@
+﻿@model MeloStream.Models.PlayerLink
+
+@{
+    ViewData["Title"] = "Ajouter un Lien";
+}
+
+<h2>Ajouter un Lien de Visionnage</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+
+            <div class="form-group mb-3">
+                <label class="control-label">Sélectionner l'Épisode</label>
+                <select asp-for="EpisodeId" class="form-control" asp-items="ViewBag.EpisodeId" required>
+                    <option value="">-- Choisir un épisode --</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Plateforme de streaming (Lecteur)</label>
+                <input asp-for="NomPlateforme" class="form-control" placeholder="Ex: Sibnet, Sendvid, MyStream" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">URL Embed du lecteur (Lien Iframe)</label>
+                <input asp-for="UrlEmbed" class="form-control" type="url" placeholder="https://sibnet.ru/e/..." required />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Enregistrer le Lien</button>
+                <a asp-action="Index" class="btn btn-secondary">Retour</a>
+            </div>
+        </form>
+    </div>
+</div>
