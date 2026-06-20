@@ -1,31 +1,51 @@
 ﻿@model IEnumerable<MeloStream.Models.Anime>
 
 @{
-    ViewData["Title"] = "Liste des Animes";
+    ViewData["Title"] = "Catalogue";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>CATALOGUES</h2>
-    <a asp-action="Create" class="btn btn-success">➕ Ajouter un Anime</a>
+    <div class="row pt-1 mb-2">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold text-uppercase text-white" style="letter-spacing: 2px;">
+                Catalogue
+            </h1>
+        </div>
+    </div>
 </div>
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info">La base de données est vide. Ajoute un anime pour commencer !</div>
+    <div class="alert alert-info bg-transparent border-info text-info">
+        AUCUN ANIME DANS LA BASE DE DONNÉES. VEUILLEZ EN AJOUTER!
+    </div>
 }
 else
 {
-    <div class="row">
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-4">
         @foreach (var item in Model)
         {
-            <div class="col-md-4 mb-3">
-                <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">
-                    <div class="card h-100 shadow-sm card-hover" style="cursor: pointer;">
-                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.Titre" style="max-height: 250px; object-fit: cover;" onerror="this.src='https://placehold.co/400x250?text=Pas+d+image'">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">@item.Titre</h5>
-                            <p class="card-text text-truncate text-muted">@item.Synopsis</p>
+            <div class="col">
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none anime-link">
+
+                    <div class="anime-poster-container shadow">
+                        <img src="@item.ImageUrl"
+                             class="anime-poster"
+                             alt="@item.Titre"
+                             onerror="this.src='https://placehold.co/300x450/111/fff?text=Poster'">
+
+                        <i class="fa-solid fa-play play-icon"></i>
+                    </div>
+
+                    <div class="anime-info mt-2">
+                        <div class="d-flex justify-content-between anime-meta mb-1">
+                            <span>Serie</span>
+                            <span></span>
                         </div>
+
+                        <h6 class="anime-title text-white fw-bold text-truncate" title="@item.Titre">
+                            @item.Titre
+                        </h6>
                     </div>
                 </a>
             </div>

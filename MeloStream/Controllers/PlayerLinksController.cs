@@ -15,6 +15,8 @@ namespace MeloStream.Controllers
             _context = context;
         }
 
+        // URL : /admin/players
+        [HttpGet("admin/players")]
         public async Task<IActionResult> Index()
         {
             var links = await _context.PlayerLinks
@@ -24,6 +26,8 @@ namespace MeloStream.Controllers
             return View(links);
         }
 
+        // URL : /admin/players/ajouter (Affichage du formulaire)
+        [HttpGet("admin/players/ajouter")]
         public async Task<IActionResult> Create()
         {
             var episodes = await _context.Episodes.Include(e => e.Anime).ToListAsync();
@@ -34,7 +38,8 @@ namespace MeloStream.Controllers
             return View();
         }
 
-        [HttpPost]
+        // URL : /admin/players/ajouter (Traitement du formulaire)
+        [HttpPost("admin/players/ajouter")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PlayerLink playerLink)
         {

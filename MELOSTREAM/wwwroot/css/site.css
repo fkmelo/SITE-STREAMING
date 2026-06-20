@@ -1,31 +1,356 @@
-html {
-  font-size: 14px;
+@charset "UTF-8";
+
+
+.logo-titre {
+    max-width: 245px;
+    height: 80px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+
+
+* {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+
+footer {
+    background-color: rgba(255, 255, 255, 0.08);
+    font-size: 0.9rem;
+    color: rgb(0, 0, 0,);
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    height: 100%;
 }
+
+.menu {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .menu:hover {
+        transform: translateY(-4px);
+    }
 
 body {
-  margin-bottom: 60px;
+    background-color: #050a14; /* Un bleu nuit très sombre */
+    background-image: url('../images/h.webp');
+    background-blend-mode: multiply; /* Mélange l'image avec le bleu foncé */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* 2. Le Header (Légèrement plus clair que le fond) */
+header {
+    background-color: rgba(255, 255, 255, 0.15); /* Transparence très faible */
+    backdrop-filter: blur(10px); /* Effet flou pro */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* 3. Le Body/Main (Plus clair que le header pour faire ressortir le contenu) */
+main {
+    background-color: rgba(255, 255, 255, 0.08); /* Très subtil */
+    border-radius: 20px;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* 4. Ajustement du texte pour qu'il soit lisible sur fond sombre */
+body, .text-black {
+    color: #e0e0e0 !important; /* Texte gris clair au lieu de noir */
+}
+
+a.text-black {
+    color: #ffffff !important;
+}
+
+
+.photo {
+    border: 3px solid black;
+}
+
+.icone > i {
+    color: black;
+    font-size: 10em;
+}
+
+.compagnie {
+    background-color: rgba(255, 255, 255, 0.20);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+    .compagnie:hover {
+        background-color: rgba(255, 255, 255, 0.30);
+        scale: 1.02;
+        transform: translateY(-1px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+.recherche {
+    background-image: url('../images/Black-Clover-130_02.11_2020.04.14_11.36.27_stitch.jpg');
+    background-position: top;
+}
+
+.perso {
+    border: 3px solid black;
+    border-radius: 0.75rem;
+}
+
+/* style pour les personnages et effet au survol */
+.etiquette1,
+.etiquette2,
+.etiquette3 {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.70);
+    color: black;
+    font-weight: bold;
+    transition: all 0.4s ease-in-out;
+    z-index: 2;
+}
+
+/*  debut code pour barre recherche*/
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 8px 15px;
+    transition: all 0.4s ease;
+}
+
+/* L'input lui-même */
+.search-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    padding-left: 10px;
+    outline: none;
+}
+
+/* L'icône */
+.search-icon {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+
+/* Effet de surbrillance au clic (Focus) */
+.search-container:focus-within {
+    border: 1px solid #00d2ff; /* Bordure bleu clair fixe */
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); /* Halo bleu clair */
+}
+
+    /* L'icône devient bleu clair au clic */
+    .search-container:focus-within .search-icon {
+        color: #00d2ff;
+    }
+
+/* FIN*/
+
+.etiquette1 {
+    top: 200px;
+    left: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.etiquette2 {
+    bottom: 25px;
+    left: 20px;
+}
+
+.etiquette3 {
+    top: 10px;
+    right: 28px;
+    opacity: 0;
+    background-color: transparent;
+    color: white;
+    border: none;
+    transition: all 0.4s ease-in-out;
+}
+
+.position-relative:hover .etiquette1,
+.position-relative:hover .etiquette2 {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.position-relative:hover .etiquette3 {
+    opacity: 1;
+    background-color: transparent;
+    transform: scale(1.3);
+    color: white;
+}
+
+.perso {
+    transition: filter 0.4s ease;
+}
+
+.position-relative:hover .perso {
+    filter: brightness(70%);
+}
+
+.btn-retour:hover {
+    background-color: #00d2ff !important; /* Ton bleu clair */
+    border-color: #00d2ff !important; /* La bordure devient bleue aussi */
+    color: #050a14 !important; /* Texte en bleu nuit (ton fond) pour un contraste parfait */
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); /* Petit halo lumineux optionnel */
+}
+/* couleur de mon tableau*/
+.table-dark {
+    background-color: #212221;
+}
+
+.table > tbody > tr > td {
+    background-color: rgba(255, 255, 255, 0.60);
+}
+
+.table-responsive {
+    border: 1px solid black;
+}
+
+.fa-trash {
+    transition: transform 0.2s, color 0.2s;
+}
+
+    .fa-trash:hover {
+        color: #dc3545;
+        transform: scale(1.3);
+    }
+
+/* tout les formulaires */
+form {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 8px;
+}
+
+.form-check-input:checked {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-primary {
+    background-color: #198754;
+    border-color: #198754;
+    font-weight: bold;
+}
+
+    .btn-primary:hover {
+        background-color: #146c43;
+        transition: background-color 0.5s ease;
+    }
+
+.btn-secondary {
+    background-color: #343a40;
+    border-color: #343a40;
+    font-weight: bold;
+}
+
+    .btn-secondary:hover {
+        background-color: #23272b;
+        transition: background-color 0.5s ease;
+    }
+
+/* Animation discrète pour le trèfle du footer */
+.fa-clover {
+    color: green;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* effet pour laffichage des animes de catalogues*/
+/* --- GRILLE CATALOGUE ANIMES --- */
+
+/* Conteneur de l'affiche */
+.anime-poster-container {
+    position: relative;
+    border-radius: 8px; /* Coins arrondis style Netflix */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #111; /* Fond noir si l'image charge lentement */
+}
+
+/* L'image de l'affiche */
+.anime-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3; /* Force le format vertical (Poster) peu importe l'image source */
+    object-fit: cover; /* Recadre l'image sans la déformer */
+    display: block;
+    transition: filter 0.3s ease, transform 0.5s ease;
+}
+
+/* Les métadonnées (TV Show, etc.) */
+.anime-meta {
+    font-size: 0.75rem;
+    color: #808694; /* Gris bleuté discret */
+    font-weight: 600;
+}
+
+/* Le titre */
+.anime-title {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    transition: color 0.2s ease;
+}
+
+/* --- EFFETS DE SURVOL (HOVER) --- */
+
+/* Quand on passe la souris sur tout le bloc de l'anime */
+.anime-link:hover .anime-poster-container {
+    transform: translateY(-5px); /* L'affiche monte légèrement */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Effet d'assombrissement sur l'image */
+.anime-link:hover .anime-poster {
+    filter: brightness(70%); /* Assombrit légèrement l'image */
+    transform: scale(1.05); /* Petit zoom intérieur */
+}
+
+/* Le titre prend la couleur de ton thème (Bleu clair de ta barre de recherche) */
+.anime-link:hover .anime-title {
+    color: #00d2ff !important;
+}
+
+/* L'icône Play (Cachée par défaut et centrée) */
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Règle magique pour centrer parfaitement */
+    color: #00d2ff; /* Ton bleu clair */
+    font-size: 3rem; /* Grosseur de l'icône, tu peux ajuster */
+    opacity: 0; /* Totalement invisible au repos */
+    z-index: 2; /* S'assure qu'elle passe par-dessus l'image */
+    pointer-events: none; /* Empêche l'icône de bloquer le clic sur le lien */
+    transition: opacity 0.4s ease; /* Fait apparaître l'icône en douceur, comme tes autres effets */
+}
+
+/* Fait apparaître l'icône quand on survole TOUT le bloc de l'anime */
+.anime-link:hover .play-icon {
+    opacity: 0.9; /* Apparaît (légèrement transparente pour un look plus moderne) */
+}
+/*Fin*/

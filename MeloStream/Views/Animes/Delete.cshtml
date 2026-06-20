@@ -1,0 +1,42 @@
+﻿@model MeloStream.Models.Anime
+
+@{
+    ViewData["Title"] = "Supprimer l'anime";
+}
+<br /><br />
+<div class="row text-white mt-2">
+    <div class="col-md-3 mb-4">
+        <div class="anime-poster-container shadow">
+            <img src="@Model.ImageUrl"
+                 class="anime-poster"
+                 alt="@Model.Titre"
+                 onerror="this.src='https://placehold.co/300x450/111/fff?text=Poster'">
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <span class="text-danger fw-bold text-uppercase tracking-wider" style="letter-spacing: 1px;">
+        </span>
+        <h1 class="display-5 fw-bold text-uppercase mt-1 mb-3">Supprimer cet anime ?</h1>
+
+        <p class="text-muted mb-4">
+            <strong class="text-white">Cette action est irréversible.</strong>
+        </p>
+
+        <h3 class="h4 fw-bold text-white mb-2">@Model.Titre</h3>
+
+        <p class="text-secondary p-3 rounded border-start border-3 border-bleu-clair" style="color: white !important; background-color: rgba(255,255,255,0.02);">
+            @Model.Synopsis
+        </p>
+
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="mt-4">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit" class="btn btn-danger px-4 py-2 fw-bold shadow-sm">
+                <i class="fa-solid fa-trash-can me-2"></i> CONFIRMER
+            </button>
+        </form>
+    </div>
+</div>
